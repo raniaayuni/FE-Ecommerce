@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk Favorit</title>
+  <link rel="stylesheet" href="../favorit/style.css">
+  <script
+    type="module"
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+  ></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="cart-header">
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <img src="../assets/images/logo.png" alt="Glowing">
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h1 class="header-title">Produk Favorit</h1>
+    <div id="favorites-container" class="container">
+      <!-- Produk favorit akan dimuat di sini -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="fav-footer">
+    <div class="container">
+      <p class="footer-text">© 2024 Glowing - Reveal The Beauty of Skin</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const favoritesContainer = document.getElementById("favorites-container");
+        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Fungsi untuk menampilkan produk favorit
+        function displayFavorites() {
+            favoritesContainer.innerHTML = ""; // Bersihkan kontainer
+            if (favorites.length === 0) {
+                favoritesContainer.innerHTML = "<p style='text-align: center;'>Tidak ada produk di favorit.</p>";
+            } else {
+                favorites.forEach((product) => {
+                    const productHTML = `
+                        <div class="favorite-card" id="product-${product.id}">
+                            <img src="${product.image}" alt="${product.name}">
+                            <div class="card-info">
+                                <h3 class="card-title">${product.name}</h3>
+                                <p class="price">${product.price}</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-remove" data-id="${product.id}">Hapus</button>
+                                <button class="btn-add-cart" data-id="${product.id}">
+                                  <ion-icon name="cart-outline"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    favoritesContainer.innerHTML += productHTML;
+                });
+
+                attachListeners();
+            }
+        }
+
+        // Fungsi untuk menghapus produk dari favorit
+        function removeFavorite(id) {
+            favorites = favorites.filter((product) => product.id !== id);
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+            displayFavorites();
+        }
+
+        // Fungsi untuk menambahkan produk ke keranjang
+        function addToCart(id) {
+            const product = favorites.find((item) => item.id === id);
+            if (product) {
+                // Cek jika produk sudah ada di keranjang
+                const isInCart = cart.some((item) => item.id === id);
+                if (!isInCart) {
+                    cart.push(product);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    alert(`${product.name} berhasil ditambahkan ke keranjang.`);
+                } else {
+                    alert(`${product.name} sudah ada di keranjang.`);
+                }
+            }
+        }
+
+        // Fungsi untuk menambahkan event listener ke tombol hapus dan tambah keranjang
+        function attachListeners() {
+            const removeButtons = document.querySelectorAll(".btn-remove");
+            const addCartButtons = document.querySelectorAll(".btn-add-cart");
+
+            removeButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const productId = parseInt(this.getAttribute("data-id"));
+                    removeFavorite(productId);
+                });
+            });
+
+            addCartButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const productId = parseInt(this.getAttribute("data-id"));
+                    addToCart(productId);
+                });
+            });
+        }
+
+        // Tampilkan produk favorit saat halaman dimuat
+        displayFavorites();
+    });
+  </script>
+</body>
+</html>

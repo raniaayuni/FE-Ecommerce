@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <title>Login - Glowing</title>
+</head>
+
+<body>
+    <!-- Header-like section -->
+    <header class="header-login-regis">
+        <div class="container" >
+            <a href="index.html" class="logo">
+                <img src="./assets/images/logo.png" alt="Glowing">
+            </a>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <main>
+        <div class="container">
+            <div class="form-container">
+                <h2 class="h2">Login</h2>
+                <form id="loginForm" onsubmit="validateLogin(event)">
+                    <input type="email" id="email" placeholder="Email" class="input-field" required>
+                    <input type="password" id="password" placeholder="Password" class="input-field" required>
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </form>
+                <p>
+                    Don't have an account? <a href="registrasi.html" class="btn-link;">Register here</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+     function validateLogin(event) {
+        event.preventDefault(); // Mencegah halaman refresh saat form disubmit
+    
+        // Ambil nilai input email dan password
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+    
+        // Buat objek data login
+        const loginData = {
+            email: email,
+            password: password
+        };
+    
+        // Kirim data login ke backend menggunakan fetch
+        fetch('http://localhost:3000/login', { // Ganti URL ini dengan endpoint backend Anda
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData), // Data dikirim dalam format JSON
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json(); // Parsing respons JSON dari backend
+        })
+        .then(data => {
+            if (data.success) {
+                // Jika login berhasil, arahkan pengguna ke halaman index.html
+                window.location.href = './index.html'; // Ganti dengan URL halaman tujuan
+            } else {
+                // Tampilkan pesan error jika login gagal
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Terjadi kesalahan saat memproses login. Coba lagi.");
+        });
+    }
+</script>    
+
+    <!-- Custom Script -->
+    <script src="./assets/script.js"></script>
+</body>
+
+</html>

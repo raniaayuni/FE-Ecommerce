@@ -1,0 +1,215 @@
+/*-----------------------------------*\
+  #GLOBAL STYLE
+\*-----------------------------------*/
+
+body {
+    font-family: 'Urbanist', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Memastikan body memenuhi tinggi layar */
+}
+
+h1, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Konten utama mengambil sisa ruang */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*-----------------------------------*\
+  #HEADER
+\*-----------------------------------*/
+
+.cart-header {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    text-align: center;
+}
+
+.cart-header .logo img {
+    max-width: 150px;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #444;
+}
+
+/*-----------------------------------*\
+  #FAVORITES
+\*-----------------------------------*/
+
+#favorites-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.favorite-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px);
+    max-width: 300px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.favorite-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.favorite-card .card-info {
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.price {
+    font-size: 1rem;
+    color: #555;
+}
+
+/*-----------------------------------*\
+  #BUTTONS
+\*-----------------------------------*/
+
+.btn-remove {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-remove:hover {
+    background-color: #c0392b;
+}
+
+/* Gaya untuk tombol ikon keranjang */
+.btn-add-cart {
+    background-color: #3498db; /* Warna biru untuk tombol keranjang */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    width: 100px; /* Samakan lebar dengan tombol hapus */
+    height: 40px; /* Sesuaikan tinggi */
+  }
+  
+  .btn-add-cart ion-icon {
+    font-size: 1.2rem; /* Ukuran ikon */
+  }
+  
+  .btn-add-cart:hover {
+    background-color: #2980b9; /* Warna hover */
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Jarak antar tombol */
+    margin-top: 10px; /* Jarak dengan elemen di atasnya */
+  }
+  
+  .btn-remove, .btn-add-cart {
+    flex: 1; /* Membuat tombol memiliki lebar yang sama */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+/*-----------------------------------*\
+  #FOOTER
+\*-----------------------------------*/
+
+.fav-footer {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: #888;
+}
+
+/*-----------------------------------*\
+  #RESPONSIVE DESIGN
+\*-----------------------------------*/
+
+@media (max-width: 768px) {
+    .favorite-card {
+        width: calc(50% - 15px);
+    }
+}
+
+@media (max-width: 480px) {
+    .favorite-card {
+        width: 100%;
+    }
+
+    .header-title {
+        font-size: 1.8rem;
+    }
+}
